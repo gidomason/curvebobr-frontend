@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import ConnectButton from './components/ConnectButton';
 import { useAccount } from 'wagmi';
 import TelegramSendBlock from './components/TelegramSendBlock';
@@ -16,11 +17,25 @@ function App() {
     setSigned(!!data);
   };
 
+  const sendToBot = async () => {
+    const body = {
+      user_id: userId,
+      address,
+    };
+    const { data } = await axios.post('https://nofomo.world/postapp', body);
+    console.log(data);
+  };
+
   useEffect(() => {
     let url = window.location.href;
     setUserId(url.slice(url.indexOf('user_id')).split('=')[1]);
-    console.log('UserID: ', userId);
   }, []);
+
+  useEffect(() => {
+    if (signed) {
+      sendToBot();
+    }
+  }, [signed]);
 
   return (
     <div className="container mx-auto pt-12">
@@ -51,7 +66,7 @@ function App() {
                   <span className="text-2xl mr-2">✅</span> Сообщение успешно
                   подписано
                 </div>
-                <TelegramSendBlock />
+                <h2 className="text-xl text-center"> Вернитесь к боту</h2>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center gap-5">
