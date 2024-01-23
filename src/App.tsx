@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ConnectButton from './components/ConnectButton';
 import { useAccount } from 'wagmi';
-import TelegramSendBlock from './components/TelegramSendBlock';
 import SignButton from './components/SignButton';
 import img from './assets/main.jpg';
 import Logo from './assets/logo.png';
@@ -38,7 +37,7 @@ function App() {
   }, [signed]);
 
   return (
-    <div className="container mx-auto pt-12">
+    <div className="container px-5 mx-auto pt-12">
       <header className="flex justify-between items-center mb-20">
         <div className="flex items-center gap-3">
           <span>
@@ -51,7 +50,7 @@ function App() {
         </div>
       </header>
 
-      <div className="flex justify-between items-center w-[850px] mx-auto">
+      <div className="flex justify-between items-center max-w-[850px] mx-auto">
         <div>
           {!address && (
             <h2 className="text-center text-2xl">
