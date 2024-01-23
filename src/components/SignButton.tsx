@@ -1,6 +1,5 @@
 import { useSignMessage } from 'wagmi';
 import Spinner from './Spinner';
-import { useSendTransaction } from 'wagmi';
 
 export default ({
   address,
@@ -10,7 +9,6 @@ export default ({
   setSigned: (data: `0x${string}`) => void;
 }) => {
   const { data, signMessage, isPending } = useSignMessage();
-  const { sendTransaction } = useSendTransaction();
 
   const message = `${address}`;
 
