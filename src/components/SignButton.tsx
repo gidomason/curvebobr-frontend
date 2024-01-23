@@ -1,7 +1,6 @@
 import { useSignMessage } from 'wagmi';
 import Spinner from './Spinner';
 import { useSendTransaction } from 'wagmi';
-import { parseEther } from 'viem';
 
 export default ({
   address,
@@ -26,7 +25,12 @@ export default ({
       ) : (
         <button
           className="bg-orange-500 hover:bg-orange-600 transition-all text-white px-5 py-3 rounded-xl font-bold"
-          onClick={() => signMessage({ message })}
+          onClick={() =>
+            signMessage({
+              message,
+              account: address,
+            })
+          }
         >
           Подписать
         </button>

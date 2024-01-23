@@ -16,8 +16,10 @@ const metadata = {
 
 const chains = [mainnet, arbitrum];
 const wagmiConfig = defaultWagmiConfig({
+  //@ts-ignore
   chains,
   projectId,
+  //@ts-ignore
   metadata,
   enableWalletConnect: true,
   enableInjected: true,
@@ -25,6 +27,7 @@ const wagmiConfig = defaultWagmiConfig({
   enableCoinbase: true,
 });
 
+//@ts-ignore
 createWeb3Modal({ themeMode: 'light', wagmiConfig, projectId, chains });
 
 export function Web3Modal({ children }: { children: React.ReactNode }) {
