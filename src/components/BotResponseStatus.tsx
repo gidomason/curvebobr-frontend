@@ -2,7 +2,7 @@ export default ({ status }: { status: "success" | "failed" }) => {
 	return (
 		<>
 			<div className="text-center font-bold text-lg mb-5 flex items-center">
-				<span className="text-2xl mr-2">
+				<span className="text-2xl">
 					{status === "success" && "✅"}
 					{status === "failed" && "🚨"}
 				</span>

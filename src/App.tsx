@@ -53,7 +53,7 @@ function App() {
 		<div className="container mx-auto px-5 pt-12">
 			<header className="mb-20 flex items-center justify-between">
 				<div className="flex items-center gap-3">
-					<span>
+					<span className="sm:hidden md:block">
 						<img className="w-10" src={Logo} alt="logo" />
 					</span>
 					<h2 className="text-2xl font-bold">CURVEBOBR</h2>
