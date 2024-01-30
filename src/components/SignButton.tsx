@@ -8,7 +8,7 @@ export default ({
 	address: `0x${string}` | undefined;
 	setSigned: (data: `0x${string}`) => void;
 }) => {
-	const { data, signMessage, isPending, error } = useSignMessage();
+	const { data, signMessage, isPending } = useSignMessage();
 
 	const message = `Подпишите, чтобы авторизоваться на сайте`;
 
