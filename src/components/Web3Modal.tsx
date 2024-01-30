@@ -2,7 +2,7 @@ import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiProvider } from "wagmi";
 import { arbitrum, goerli, mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { config } from "../config";
+// import { config } from "../config";
 
 const queryClient = new QueryClient();
 

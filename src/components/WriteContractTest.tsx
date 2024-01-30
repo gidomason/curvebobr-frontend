@@ -1,10 +1,8 @@
 import { useWriteContract } from "wagmi";
 import { abi } from "../ABI/bobr-arbi";
-import { useState } from "react";
 
 export function WriteContractTest() {
 	const { writeContract, error } = useWriteContract();
-	const [balanceError, setBalanceError] = useState<boolean>(false);
 
 	return (
 		<div className="flex flex-col items-center">

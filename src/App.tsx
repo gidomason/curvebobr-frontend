@@ -7,7 +7,7 @@ import img from "./assets/main.jpg";
 import Logo from "./assets/logo.png";
 import Footer from "./components/Footer";
 import BotResponseStatus from "./components/BotResponseStatus";
-import SendTransaction from "./components/SendTransaction";
+// import SendTransaction from "./components/SendTransaction";
 import { WriteContractTest } from "./components/WriteContractTest";
 
 function App() {

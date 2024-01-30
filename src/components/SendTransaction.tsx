@@ -8,7 +8,7 @@ import { toWei } from "web3-utils";
 import Spinner from "./Spinner";
 import { abi } from "../ABI/bobr-arbi";
 
-export default ({ from }) => {
+export default () => {
 	const { data: hash, isPending } = useSendTransaction();
 	const { writeContract } = useWriteContract();
 
