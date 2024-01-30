@@ -1,6 +1,6 @@
 export default () => {
   return (
-    <div className="pt-28 text-center flex flex-col">
+    <div className="absolute bottom-12 left-[50%] translate-x-[-50%] text-center flex flex-col">
       <div className="flex gap-5 justify-center mb-5">
         <a href="https://t.me/bobrcrv" target="blank">
           <svg

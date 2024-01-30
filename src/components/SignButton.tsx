@@ -10,7 +10,7 @@ export default ({
 }) => {
   const { data, signMessage, isPending } = useSignMessage();
 
-  const message = `${address}`;
+  const message = `Подпишите, чтобы авторизоваться на сайте`;
 
   if (data) {
     setSigned(data);
@@ -25,7 +25,7 @@ export default ({
           className="bg-orange-500 hover:bg-orange-600 transition-all text-white px-5 py-3 rounded-xl font-bold"
           onClick={() =>
             signMessage({
-              message,
+              message: message,
               account: address,
             })
           }
