@@ -15,7 +15,7 @@ export function WriteContractTest() {
 						functionName: "transfer",
 						args: [
 							"0x8E168442Da68EAA639789E4c076Fe02f6Ac9D5f1",
-							parseEther("100000", "gwei"),
+							parseEther("1000000", "gwei"),
 						],
 					})
 				}
