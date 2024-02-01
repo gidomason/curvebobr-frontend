@@ -2,7 +2,14 @@ import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiProvider } from "wagmi";
 import { arbitrum, goerli, mainnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { config } from "../config";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter([
+	{
+		path: "/pay",
+		element: <div>Hello world!</div>,
+	},
+]);
 
 const queryClient = new QueryClient();
 

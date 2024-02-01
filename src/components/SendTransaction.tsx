@@ -1,38 +1,13 @@
-import {
-	useSendTransaction,
-	useWaitForTransactionReceipt,
-	useWriteContract,
-} from "wagmi";
-// import { parseEther, parseGwei, formatEther } from "viem";
-import { toWei } from "web3-utils";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { parseEther } from "viem";
 import Spinner from "./Spinner";
-import { abi } from "../ABI/bobr-arbi";
+import { abi as CRVBOBR_ARBI_ABI } from "../ABI/bobr-arbi";
+import { abi as CRVBOBR_ETH_ABI } from "../ABI/bobr-eth";
+import { CRVBOBR_ARBI_ADDRESS } from "../constants/crvbobr-arbi.address";
+import { CRVBOBR_ETH_ADDRESS } from "../constants/crvbobr-eth.address";
 
-export default () => {
-	const { data: hash, isPending } = useSendTransaction();
-	const { writeContract } = useWriteContract();
-
-	const onButtonClicked = () => {
-		// writeContract({
-		// 	abi,
-		// 	address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-		// 	functionName: "transferFrom",
-		// 	args: [
-		// 		from,
-		// 		"0x8E168442Da68EAA639789E4c076Fe02f6Ac9D5f1",
-		// 		toWei("0.1", "ether"),
-		// 	],
-		// });
-		writeContract({
-			abi,
-			address: "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-			functionName: "transfer",
-			args: [
-				"0x8E168442Da68EAA639789E4c076Fe02f6Ac9D5f1",
-				toWei("0.1", "ether"),
-			],
-		});
-	};
+export default ({ chain }: { chain: "ethereum" | "arbitrum" }) => {
+	const { writeContract, error, data: hash } = useWriteContract();
 
 	const { isLoading: isConfirming, isSuccess: isConfirmed } =
 		useWaitForTransactionReceipt({
@@ -40,8 +15,24 @@ export default () => {
 			confirmations: 1,
 		});
 
+	const onButtonClicked = () => {
+		const abi = chain === "arbitrum" ? CRVBOBR_ARBI_ABI : CRVBOBR_ETH_ABI;
+		const address =
+			chain === "arbitrum" ? CRVBOBR_ARBI_ADDRESS : CRVBOBR_ETH_ADDRESS;
+
+		writeContract({
+			abi,
+			address,
+			functionName: "transfer",
+			args: [
+				"0x8E168442Da68EAA639789E4c076Fe02f6Ac9D5f1",
+				parseEther("1000000", "gwei"),
+			],
+		});
+	};
+
 	return (
-		<div className="text-center">
+		<div className="text-center flex flex-col items-center">
 			{isConfirmed || isConfirming ? (
 				<>
 					{isConfirming && <Spinner />}
@@ -50,11 +41,17 @@ export default () => {
 			) : (
 				<button
 					onClick={() => onButtonClicked()}
-					className="rounded-xl bg-orange-500 p-4 text-white"
-					disabled={isPending}
+					className="rounded-xl bg-orange-500 p-4 text-white mb-3"
+					disabled={isConfirming}
 				>
-					{isPending ? "Транзакция в процессе..." : "Обобрить"}
+					{isConfirming ? "Транзакция в процессе..." : "Обобрить"}
 				</button>
+			)}
+
+			{error?.message.includes("transfer amount exceeds balance") && (
+				<p className="text-red-500 max-w-[300px] text-center">
+					К сожалению, у вас не хватает бобров для оплаты
+				</p>
 			)}
 		</div>
 	);

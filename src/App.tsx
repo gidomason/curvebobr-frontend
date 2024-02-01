@@ -10,6 +10,7 @@ import { WriteContractTest } from "./components/WriteContractTest";
 import getParams from "./services/getParams";
 import { IParams } from "./interfaces/IParams";
 import Header from "./components/Header";
+import SendTransaction from "./components/SendTransaction";
 
 function App() {
 	const { address } = useAccount();
@@ -78,7 +79,7 @@ function App() {
 								<>
 									<BotResponseStatus status={botResponse} />
 									{botResponse === "success" && (
-										// <SendTransaction from={address} />
+										// <SendTransaction chain="arbitrum" />
 										<WriteContractTest />
 									)}
 								</>
