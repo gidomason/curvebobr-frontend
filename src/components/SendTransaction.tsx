@@ -31,7 +31,9 @@ export default ({ sendToBot }) => {
 
 	return (
 		<div className="text-center flex flex-col items-center">
-			<h2 className="text-xl mb-3">Оплатите транзакцию для мута</h2>
+			{!isConfirmed && (
+				<h2 className="text-xl mb-3">Оплатите транзакцию для мута</h2>
+			)}
 			{isConfirmed || isConfirming ? (
 				<>
 					{isConfirming && <Spinner />}
