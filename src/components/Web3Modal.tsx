@@ -31,6 +31,7 @@ createWeb3Modal({
 	themeMode: "light",
 	wagmiConfig,
 	projectId,
+	defaultChain: arbitrum,
 	//@ts-ignore
 	chains,
 	tokens: {

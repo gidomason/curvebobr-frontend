@@ -53,7 +53,6 @@ function App() {
 	useEffect(() => {
 		const url = window.location.href;
 		const params = getParams(url);
-		console.log(params);
 		//@ts-ignore
 		setParams(params);
 	}, []);
