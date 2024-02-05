@@ -3,7 +3,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 
 export default () => {
 	const { switchChain } = useSwitchChain();
-	const { chainId, address } = useAccount();
+	const { chainId } = useAccount();
 
 	useEffect(() => {
 		if (chainId !== 42161) {
