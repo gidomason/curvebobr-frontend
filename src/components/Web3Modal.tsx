@@ -1,15 +1,7 @@
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 import { WagmiProvider } from "wagmi";
-import { arbitrum, goerli, mainnet } from "wagmi/chains";
+import { arbitrum } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const router = createBrowserRouter([
-	{
-		path: "/pay",
-		element: <div>Hello world!</div>,
-	},
-]);
 
 const queryClient = new QueryClient();
 
@@ -22,7 +14,7 @@ const metadata = {
 	icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet, arbitrum, goerli];
+const chains = [arbitrum];
 const wagmiConfig = defaultWagmiConfig({
 	//@ts-ignore
 	chains,
@@ -42,9 +34,6 @@ createWeb3Modal({
 	//@ts-ignore
 	chains,
 	tokens: {
-		1: {
-			address: "0x8F22779662Ad253844013D8E99EcCB4d80e31417",
-		},
 		42161: {
 			address: "0xF12132857fb45b1F1342420EaAF818509F850468",
 		},
