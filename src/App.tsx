@@ -110,7 +110,9 @@ function App() {
 				</div>
 
 				<div>
-					<img className="w-96 rounded-3xl" src={img} alt="logo" />
+					<a href="https://bobrcrv.com" target="_blank">
+						<img className="w-96 rounded-3xl" src={img} alt="logo" />
+					</a>
 				</div>
 			</div>
 
