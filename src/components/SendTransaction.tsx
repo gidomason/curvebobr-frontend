@@ -2,11 +2,10 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 import Spinner from "./Spinner";
 import { abi as CRVBOBR_ARBI_ABI } from "../ABI/bobr-arbi";
-import { abi as CRVBOBR_ETH_ABI } from "../ABI/bobr-eth";
 import { CRVBOBR_ARBI_ADDRESS } from "../constants/crvbobr-arbi.address";
-import { CRVBOBR_ETH_ADDRESS } from "../constants/crvbobr-eth.address";
+import { useEffect } from "react";
 
-export default ({ chain }: { chain: "ethereum" | "arbitrum" }) => {
+export default ({ sendToBot }) => {
 	const { writeContract, error, data: hash } = useWriteContract();
 
 	const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -16,23 +15,23 @@ export default ({ chain }: { chain: "ethereum" | "arbitrum" }) => {
 		});
 
 	const onButtonClicked = () => {
-		const abi = chain === "arbitrum" ? CRVBOBR_ARBI_ABI : CRVBOBR_ETH_ABI;
-		const address =
-			chain === "arbitrum" ? CRVBOBR_ARBI_ADDRESS : CRVBOBR_ETH_ADDRESS;
-
 		writeContract({
-			abi,
-			address,
+			abi: CRVBOBR_ARBI_ABI,
+			address: "0xF12132857fb45b1F1342420EaAF818509F850468",
 			functionName: "transfer",
-			args: [
-				"0x8E168442Da68EAA639789E4c076Fe02f6Ac9D5f1",
-				parseEther("1000000", "gwei"),
-			],
+			args: [CRVBOBR_ARBI_ADDRESS, parseEther("1000000", "gwei")],
 		});
 	};
 
+	useEffect(() => {
+		if (isConfirmed) {
+			sendToBot();
+		}
+	}, [isConfirmed]);
+
 	return (
 		<div className="text-center flex flex-col items-center">
+			<h2 className="text-xl mb-3">Оплатите транзакцию для мута</h2>
 			{isConfirmed || isConfirming ? (
 				<>
 					{isConfirming && <Spinner />}

@@ -12,11 +12,11 @@ export default ({ status }: { status: "success" | "failed" }) => {
 					{status === "failed" && "Не удалось подписать сообщение"}
 				</h2>
 			</div>
-			{status === "failed" && (
-				<h2 className="text-lg text-center">
-					Пожалуйста, вернитесь к боту и попробуйте еще раз
-				</h2>
-			)}
+			<h2 className="text-lg text-center">
+				{status === "failed"
+					? "Пожалуйста, вернитесь к боту и попробуйте еще раз"
+					: "Пожалуйста, вернитесь к боту"}
+			</h2>
 		</>
 	);
 };

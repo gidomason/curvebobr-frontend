@@ -5,16 +5,17 @@ import SignButton from "./components/SignButton";
 import img from "./assets/main.jpg";
 import Footer from "./components/Footer";
 import BotResponseStatus from "./components/BotResponseStatus";
-// import SendTransaction from "./components/SendTransaction";
-import { WriteContractTest } from "./components/WriteContractTest";
 import getParams from "./services/getParams";
-import { IParams } from "./interfaces/IParams";
+import { IPayParams, IRegisterParams } from "./interfaces/IParams";
 import Header from "./components/Header";
 import SendTransaction from "./components/SendTransaction";
 
+type Pathname = "register" | "pay";
+
 function App() {
+	const pathname: Pathname = window.location.pathname.slice(1) as Pathname;
 	const { address } = useAccount();
-	const [params, setParams] = useState<IParams>({
+	const [params, setParams] = useState({
 		user_id: "",
 		chat_id: "",
 		target_id: "",
@@ -29,10 +30,18 @@ function App() {
 	};
 
 	const sendToBot = async () => {
-		const body = {
-			user_id: params.user_id,
-			address,
-		};
+		let body: IPayParams | IRegisterParams;
+		if (pathname === "register") {
+			body = {
+				user_id: params.user_id,
+				address,
+			} as IRegisterParams;
+		} else if (pathname === "pay") {
+			body = {
+				chat_id: params.chat_id,
+				target_id: params.target_id,
+			} as IPayParams;
+		}
 		try {
 			const { data } = await axios.post("https://nofomo.world/postapp", body);
 			if (data === "OK") {
@@ -46,6 +55,7 @@ function App() {
 	useEffect(() => {
 		const url = window.location.href;
 		const params = getParams(url);
+		//@ts-ignore
 		setParams(params);
 	}, []);
 
@@ -60,39 +70,45 @@ function App() {
 			<Header />
 
 			<div className="mx-auto flex gap-5 max-w-[850px] items-center justify-between">
-				{!params.user_id ? (
-					<div className="max-w-[400px] text-center text-red-500">
-						<h3 className="text-xl">
-							Не найден ваш User ID, вероятно вы не прошли по ссылке в боте
-						</h3>
-					</div>
-				) : (
-					<div>
-						{!address && (
-							<h2 className="text-center text-2xl">
-								Пожалуйста, подключите кошелек
-							</h2>
-						)}
-
-						{address &&
-							(signed ? (
+				<div>
+					{pathname === "register" && (
+						<>
+							{!address ? (
+								<h2 className="text-center text-2xl">
+									Пожалуйста, подключите кошелек
+								</h2>
+							) : (
 								<>
-									<BotResponseStatus status={botResponse} />
-									{botResponse === "success" && (
-										// <SendTransaction chain="arbitrum" />
-										<WriteContractTest />
+									{signed ? (
+										<BotResponseStatus status={botResponse} />
+									) : (
+										<div className="flex flex-col items-center justify-center gap-5">
+											<h2 className="text-center text-xl">
+												Пожалуйста, подпишите сообщение
+											</h2>
+											<SignButton
+												address={address}
+												setSigned={onSignedSuccess}
+											/>
+										</div>
 									)}
 								</>
+							)}
+						</>
+					)}
+
+					{pathname === "pay" && (
+						<>
+							{!address ? (
+								<h2 className="text-center text-2xl">
+									Пожалуйста, подключите кошелек
+								</h2>
 							) : (
-								<div className="flex flex-col items-center justify-center gap-5">
-									<h2 className="text-center text-xl">
-										Пожалуйста, подпишите сообщение
-									</h2>
-									<SignButton address={address} setSigned={onSignedSuccess} />
-								</div>
-							))}
-					</div>
-				)}
+								<SendTransaction sendToBot={sendToBot} />
+							)}
+						</>
+					)}
+				</div>
 
 				<div>
 					<img className="w-96 rounded-3xl" src={img} alt="logo" />

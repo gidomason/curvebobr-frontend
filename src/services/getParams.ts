@@ -1,6 +1,4 @@
-import { IParams } from "../interfaces/IParams";
-
-export default (url: string): IParams => {
+export default (url: string) => {
 	let urlArr = url.slice(url.indexOf("?") + 1).split("&");
 	return urlArr.reduce(
 		(a, v) => ({
@@ -8,5 +6,5 @@ export default (url: string): IParams => {
 			[v.slice(0, v.indexOf("="))]: v.slice(v.indexOf("=") + 1),
 		}),
 		{}
-	) as IParams;
+	);
 };
