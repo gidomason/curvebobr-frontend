@@ -10,12 +10,10 @@ import { IPayParams, IRegisterParams } from "./interfaces/IParams";
 import Header from "./components/Header";
 import SendTransaction from "./components/SendTransaction";
 
-type Pathname = "register" | "pay";
-
 function App() {
-	const pathname: Pathname = window.location.pathname.slice(1) as Pathname;
 	const { address } = useAccount();
 	const [params, setParams] = useState({
+		type: "",
 		user_id: "",
 		chat_id: "",
 		target_id: "",
@@ -31,12 +29,12 @@ function App() {
 
 	const sendToBot = async () => {
 		let body: IPayParams | IRegisterParams;
-		if (pathname === "register") {
+		if (params.type === "register") {
 			body = {
 				user_id: params.user_id,
 				address,
 			} as IRegisterParams;
-		} else if (pathname === "pay") {
+		} else if (params.type === "pay") {
 			body = {
 				chat_id: params.chat_id,
 				target_id: params.target_id,
@@ -55,6 +53,7 @@ function App() {
 	useEffect(() => {
 		const url = window.location.href;
 		const params = getParams(url);
+		console.log(params);
 		//@ts-ignore
 		setParams(params);
 	}, []);
@@ -71,7 +70,7 @@ function App() {
 
 			<div className="mx-auto flex gap-5 max-w-[850px] items-center justify-between">
 				<div>
-					{pathname === "register" && (
+					{params.type === "register" && (
 						<>
 							{!address ? (
 								<h2 className="text-center text-2xl">
@@ -97,7 +96,7 @@ function App() {
 						</>
 					)}
 
-					{pathname === "pay" && (
+					{params.type === "pay" && (
 						<>
 							{!address ? (
 								<h2 className="text-center text-2xl">
