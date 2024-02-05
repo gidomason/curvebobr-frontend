@@ -3,7 +3,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 
 export default () => {
 	const { switchChain } = useSwitchChain();
-	const { chainId } = useAccount();
+	const { chainId, address } = useAccount();
 
 	useEffect(() => {
 		if (chainId !== 42161) {
@@ -15,7 +15,7 @@ export default () => {
 
 	return (
 		<>
-			{chainId !== 42161 ? (
+			{chainId !== 42161 && address ? (
 				<p className="text-right">
 					Смените сеть на{" "}
 					<span
