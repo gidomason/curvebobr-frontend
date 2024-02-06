@@ -41,10 +41,7 @@ function App() {
 			} as IPayParams;
 		}
 		try {
-			const { data } = await axios.post(
-				"https://bobr.optimistic.fun/postapp",
-				body
-			);
+			const { data } = await axios.post("https://bobr.dnsup.net/postapp", body);
 			if (data === "OK") {
 				setBotResponse("success");
 			}
