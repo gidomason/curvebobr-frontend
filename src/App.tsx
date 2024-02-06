@@ -41,7 +41,10 @@ function App() {
 			} as IPayParams;
 		}
 		try {
-			const { data } = await axios.post("https://nofomo.world/postapp", body);
+			const { data } = await axios.post(
+				"https://bobr.optimistic.fun/postapp",
+				body
+			);
 			if (data === "OK") {
 				setBotResponse("success");
 			}
