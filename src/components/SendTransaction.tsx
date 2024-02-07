@@ -19,7 +19,7 @@ export default ({ sendToBot }) => {
 			abi: CRVBOBR_ARBI_ABI,
 			address: "0xF12132857fb45b1F1342420EaAF818509F850468",
 			functionName: "transfer",
-			args: [CRVBOBR_ARBI_ADDRESS, parseEther("1000000", "gwei")],
+			args: [CRVBOBR_ARBI_ADDRESS, parseEther("3000000", "gwei")],
 		});
 	};
 
